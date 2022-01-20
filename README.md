@@ -20,8 +20,6 @@
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=h0rn3t-sp1d3rs" alt="h0rn3t-sp1d3rs" /></a> </p>
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=H0rn3t-Sp1d3rs)](https://github.com/H0rn3t-Sp1d3rs/github-readme-stats)
-
 <p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=h0rn3t-sp1d3rs&show_icons=true&locale=en" alt="h0rn3t-sp1d3rs" /></p>
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=h0rn3t-sp1d3rs&" alt="h0rn3t-sp1d3rs" /></p>
