@@ -1,4 +1,5 @@
 <h1>Hi there 👋, My name is H0rn3t Sp1d3rs</h1>
+&nbsp;[![Typing SVG](http://readme-typing-svg.herokuapp.com?color=00F700&size=36&multiline=true&width=970&height=60&lines=Hello+there%2C+fellow+Normal+Hackers!)](https://git.io/typing-svg)
 <img src="https://github.com/M4D-S0UL/M4D-S0UL/blob/main/m4d.gif"/><br>
 </h1>
 
@@ -14,8 +15,9 @@
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
-<a href="https://m.me/call.me.H0rn3t.Sp1d3rs" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/facebook.svg" alt="call.me.m4d.s0ul" height="30" width="40" /></a>
-</p>
+<a href="https://github.com/H0rn3t-Sp1d3rs"><img title="Github" src="https://img.shields.io/badge/Github-T3RR8US-blue?style=for-the-badge&logo=github"></a>
+<a href="https://www.facebook.com/H0rn3t.Sp1d3rs"><img title="Facebook" src="https://img.shields.io/badge/Facebook-red?style=for-the-badge&logo=facebook"></a>
+<a href="https://www.facebook.com/call.me.H0rn3t.Sp1d3rs"><img title="Messenger" src="https://img.shields.io/badge/Messenger-red?style=for-the-badge&logo=messenger"></a>
 
 
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=h0rn3t-sp1d3rs" alt="h0rn3t-sp1d3rs" /></a> </p>
