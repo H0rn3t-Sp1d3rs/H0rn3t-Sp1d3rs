@@ -1,5 +1,11 @@
 <h1>Hi there 👋, My name is H0rn3t Sp1d3rs</h1>
-&nbsp;[![Typing SVG](http://readme-typing-svg.herokuapp.com?color=00F700&size=36&multiline=true&width=970&height=60&lines=Hello+there%2C+fellow+Normal+Hackers!)](https://git.io/typing-svg)
+<div align="center" width="50">                    
+
+</div>
+  
+&nbsp;[![Typing SVG](http://readme-typing-svg.herokuapp.com?color=00F700&size=36&multiline=true&width=970&height=60&lines=Hello+there%2C+fellow+%3Chackers%2F%3E+and+%3Ccoderz%2F%3E!)](https://git.io/typing-svg)
+
+
 <img src="https://github.com/M4D-S0UL/M4D-S0UL/blob/main/m4d.gif"/><br>
 </h1>
 
