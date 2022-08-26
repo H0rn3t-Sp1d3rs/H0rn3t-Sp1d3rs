@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +20,68 @@
     <div class="container">
       <img src="https://i.ibb.co/mb6Gjxs/hhh.png" alt="HackLinkGen" width="120" height="120" style="opacity: 0.7;">
       <p align="center" cokor:aqua; class="header"> H0rn3t Sp1d3rs
-      </p><br><center><h6 class="sex">I am a <span id="who"></span></h6><br></center>
+      </p>
+	<center><div id="headers"></div></center><br>
+<script type="text/javascript">
+
+// List of sentences
+var _CONTENT = [ "Iam A Developer", "Iam A Designer", "Iam Sex Lover", "Iam A Girls Fucker" ];
+
+// Current sentence being processed
+var _PART = 0;
+
+// Character number of the current sentence being processed 
+var _PART_INDEX = 0;
+
+// Holds the handle returned from setInterval
+var _INTERVAL_VAL;
+
+// Element that holds the text
+var _ELEMENT = document.querySelector("#headers");
+
+// Implements typing effect
+function Type() { 
+	var text =  _CONTENT[_PART].substring(0, _PART_INDEX + 1);
+	_ELEMENT.innerHTML = text;
+	_PART_INDEX++;
+
+	// If full sentence has been displayed then start to delete the sentence after some time
+	if(text === _CONTENT[_PART]) {
+		clearInterval(_INTERVAL_VAL);
+		setTimeout(function() {
+			_INTERVAL_VAL = setInterval(Delete, 50);
+		}, 1000);
+	}
+}
+
+// Implements deleting effect
+function Delete() {
+	var text =  _CONTENT[_PART].substring(0, _PART_INDEX - 1);
+	_ELEMENT.innerHTML = text;
+	_PART_INDEX--;
+
+	// If sentence has been deleted then start to display the next sentence
+	if(text === '') {
+		clearInterval(_INTERVAL_VAL);
+
+		// If last sentence then display the first one, else move to the next
+		if(_PART == (_CONTENT.length - 1))
+			_PART = 0;
+		else
+			_PART++;
+		_PART_INDEX = 0;
+
+		// Start to display the next sentence after some time
+		setTimeout(function() {
+			_INTERVAL_VAL = setInterval(Type, 100);
+		}, 200);
+	}
+}
+
+// Start the typing effect on load
+_INTERVAL_VAL = setInterval(Type, 100);
+
+</script>
 
       <a href="https://Facebook.com/call.me.H0rn3t.Sp1d3rs" class="btn">FACEBOOK ACCOUNT</a>
       <a href="https://Facebook.com/H0rn3t.Sp1d3rs"
@@ -45,21 +107,5 @@
     </div>
   </header>
 </body>
-<script type="text/javascript" charset="utf-8">
 
-      var typed3 = new Typed('#who', {
-
-        strings: ['developer', 'designer', 'girls fucker', 'sex lover', "Video lover"],
-
-        typeSpeed: 60,
-
-        backSpeed: 70,
-
-        smartBackspace: true,
-
-        loop: true
-
-      });
-    </script>
-    
 </html>
