@@ -20,68 +20,172 @@
     <div class="container">
       <img src="https://i.ibb.co/mb6Gjxs/hhh.png" alt="HackLinkGen" width="120" height="120" style="opacity: 0.7;">
       <p align="center" cokor:aqua; class="header"> H0rn3t Sp1d3rs
-      </p>
-	<center><font id="headers" color="aqua"></font></center>
-<script type="text/javascript">
+      </p><center><h6 class="sex"></h6></center>
+    <script type="text/javascript" charset="utf-8">
 
-// List of sentences
-var _CONTENT = [ "I Am A Developer", "I Am A Designer", "I Am A Sex Lover", "I Am A Girls Fucker" ];
+var i = 0;
+var iama = "I am a ";
+var developer = "developer";
+var designer = "designer";
+var girlsfucker = "girls fucker";
+var sexlover = "sex lover";
+var movielover = "movie lover";
 
-// Current sentence being processed
-var _PART = 0;
+setTimeout(function() {
+	var interval = setInterval(function() {
+        i++;
+        document.getElementsByTagName('h6')[0].innerHTML = iama.slice(0, i) + "|";
+        if (i == iama.length) {
+            clearInterval(interval);
+			document.getElementsByTagName('h6')[0].innerHTML = "I am a <span>|</span>";
+            setDeveloper();
+        }
+    }, 100);
+},0);
 
-// Character number of the current sentence being processed 
-var _PART_INDEX = 0;
-
-// Holds the handle returned from setInterval
-var _INTERVAL_VAL;
-
-// Element that holds the text
-var _ELEMENT = document.querySelector("#headers");
-
-// Implements typing effect
-function Type() { 
-	var text =  _CONTENT[_PART].substring(0, _PART_INDEX + 1);
-	_ELEMENT.innerHTML = text;
-	_PART_INDEX++;
-
-	// If full sentence has been displayed then start to delete the sentence after some time
-	if(text === _CONTENT[_PART]) {
-		clearInterval(_INTERVAL_VAL);
-		setTimeout(function() {
-			_INTERVAL_VAL = setInterval(Delete, 50);
-		}, 1000);
-	}
+function setDeveloper(){
+    i = 0
+    var interval = setInterval(function() {
+        i++;
+        document.getElementsByTagName('span')[0].innerHTML = developer.slice(0, i) + "|";
+        if (i == developer.length) {
+            clearInterval(interval);
+            unsetDeveloper();
+        }
+    }, 100);
 }
 
-// Implements deleting effect
-function Delete() {
-	var text =  _CONTENT[_PART].substring(0, _PART_INDEX - 1);
-	_ELEMENT.innerHTML = text;
-	_PART_INDEX--;
-
-	// If sentence has been deleted then start to display the next sentence
-	if(text === '') {
-		clearInterval(_INTERVAL_VAL);
-
-		// If last sentence then display the first one, else move to the next
-		if(_PART == (_CONTENT.length - 1))
-			_PART = 0;
-		else
-			_PART++;
-		_PART_INDEX = 0;
-
-		// Start to display the next sentence after some time
-		setTimeout(function() {
-			_INTERVAL_VAL = setInterval(Type, 100);
-		}, 200);
-	}
+function unsetDeveloper(){
+    i = developer.length;
+    var interval = setInterval(function() {
+        i--;
+        document.getElementsByTagName('span')[0].innerHTML = developer.slice(0, i) + "|";
+        if (i == 0) {
+            clearInterval(interval);
+            setDesigner();
+        }
+    }, 100);
 }
 
-// Start the typing effect on load
-_INTERVAL_VAL = setInterval(Type, 100);
+function setDesigner(){
+    i = 0
+    var interval = setInterval(function() {
+        i++;
+        document.getElementsByTagName('span')[0].innerHTML = designer.slice(0, i) + "|";
+        if (i == designer.length) {
+            clearInterval(interval);
+            unsetDesigner();
+        }
+    }, 100);
+}
 
-</script>
+function unsetDesigner(){
+    i = designer.length;
+    var interval = setInterval(function() {
+        i--;
+        document.getElementsByTagName('span')[0].innerHTML = designer.slice(0, i) + "|";
+        if (i == 0) {
+            clearInterval(interval);
+            setGirlsfucker();
+        }
+    }, 100);
+}
+
+function setGirlsfucker(){
+    i = 0
+    var interval = setInterval(function() {
+        i++;
+        document.getElementsByTagName('span')[0].innerHTML = girlsfucker.slice(0, i) + "|";
+        if (i == girlsfucker.length) {
+            clearInterval(interval);
+            unsetGirlsfucker();
+        }
+    }, 100);
+}
+
+function unsetGirlsfucker(){
+    i = girlsfucker.length;
+    var interval = setInterval(function() {
+        i--;
+        document.getElementsByTagName('span')[0].innerHTML = girlsfucker.slice(0, i) + "|";
+        if (i == 0) {
+            clearInterval(interval);
+            setSexlover();
+        }
+    }, 100);
+}
+
+function setSexlover(){
+    i = 0
+    var interval = setInterval(function() {
+        i++;
+        document.getElementsByTagName('span')[0].innerHTML = sexlover.slice(0, i) + "|";
+        if (i == sexlover.length) {
+            clearInterval(interval);
+            unsetSexlover();
+        }
+    }, 100);
+}
+
+function unsetSexlover(){
+    i = sexlover.length;
+    var interval = setInterval(function() {
+        i--;
+        document.getElementsByTagName('span')[0].innerHTML = sexlover.slice(0, i) + "|";
+        if (i == 0) {
+            clearInterval(interval);
+            setMovielover();
+        }
+    }, 100);
+}
+
+function setMovielover(){
+    i = 0
+    var interval = setInterval(function() {
+        i++;
+        document.getElementsByTagName('span')[0].innerHTML = movielover.slice(0, i) + "|";
+        if (i == movielover.length) {
+            clearInterval(interval);
+            unsetMovielover();
+        }
+    }, 100);
+}
+
+function unsetMovielover(){
+    i = movielover.length;
+    var interval = setInterval(function() {
+        i--;
+        document.getElementsByTagName('span')[0].innerHTML = movielover.slice(0, i) + "|";
+        if (i == 0) {
+            clearInterval(interval);
+            setDeveloper();
+        }
+    }, 100);
+}
+
+      
+
+      var pla = document.getElementById("play");
+
+      var paus = document.getElementById("pause");
+
+      var audio = document.getElementById("audio");
+
+      
+
+      pla.addEventListener("click", function (){
+
+        audio.play();
+
+      });
+
+      paus.addEventListener("click", function (){
+
+        audio.pause();
+
+      });
+
+    </script>
 
       <a href="https://Facebook.com/call.me.H0rn3t.Sp1d3rs" class="btn">FACEBOOK ACCOUNT</a>
       <a href="https://Facebook.com/H0rn3t.Sp1d3rs"
